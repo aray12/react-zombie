@@ -1,15 +1,13 @@
 {
-  "name": "React Zombie",
+  "name": "react-zombie",
   "version": "0.0.1",
   "description": "Skeleton React application with authentication and async actions",
-  "private": true,
   "browserify": {
     "transform": [
       "babelify"
     ]
   },
   "dependencies": {
-    "async": "^1.4.2",
     "body-parser": "~1.12.4",
     "bootstrap": "3.3.5",
     "cookie-parser": "~1.3.5",
@@ -17,12 +15,12 @@
     "express": "~4.12.4",
     "flux": "^2.0.3",
     "hbs": "~2.9.0",
+    "jsonwebtoken": "^5.0.5",
     "keymirror": "0.1.1",
     "morgan": "~1.5.3",
     "react": "0.13.3",
     "react-router": "0.13.3",
     "react-tap-event-plugin": "0.1.7",
-    "sequelize": "3.5.1",
     "serve-favicon": "~2.2.1",
     "superagent": "1.4.0",
     "underscore": "1.8.3"
@@ -35,16 +33,14 @@
     "reactify": "1.1.1",
     "should": "^7.1.0",
     "should-http": "0.0.4",
-    "uglify-js": "2.4.24",
     "watchify": "3.3.1"
   },
   "scripts": {
+    "prestart": "npm run build",
     "start": "node ./bin/www",
-    "lint": "node_modules/eslint/bin/eslint.js src/",
-    "build": "npm run build:js && npm run build:css",
-    "build:js": "browserify --extension=.jsx --extension=.js src/App.jsx > public/js/bundle.js",
-    "build:css": "echo \"No css build yet\" && exit 1",
-    "watch:js": "watchify --extension=.jsx --extension=.js src/App.jsx -o public/js/bundle.js --verbose --debug",
+    "lint": "node_modules/.bin/eslint.js src/",
+    "build": "browserify --extension=.jsx --extension=.js src/App.jsx > public/js/bundle.js",
+    "watch": "watchify --extension=.jsx --extension=.js src/App.jsx -o public/js/bundle.js --verbose --debug",
     "test": "mocha tests"
   },
   "author": "Alexander Ray"

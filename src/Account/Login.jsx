@@ -13,7 +13,7 @@ import * as AccountActions from './AccountActions';
 const Login = React.createClass({
     getInitialState() {
         return {
-            email: '',
+            username: '',
             password: ''
         }
     },
@@ -27,7 +27,13 @@ const Login = React.createClass({
     },
 
     init() {
-        // TODO : load proper content
+        let nextState = this.state;
+
+        let profile = AccountStore.profile;
+
+        nextState['username'] = profile.username;
+
+        this.setState(nextState);
     },
 
     _handleChange(field, e) {
@@ -45,15 +51,23 @@ const Login = React.createClass({
     },
 
     render() {
-        return (
-            <form onSubmit={this._handleSubmit}>
-                <input type="text" placeholder="Email" value={this.state.email}
-                       onChange={this._handleChange.bind(this, 'email')}/>
-                <input type="password" placeholder="Password" value={this.state.password}
-                       onChange={this._handleChange.bind(this, 'password')}/>
-                <input type="submit" value="Submit"/>
-            </form>
-        );
+        if(AccountStore.isLoggedIn) {
+            return (
+                <div>
+                    Congrats!! You are logged in as {this.state.username}
+                </div>
+            )
+        } else {
+            return (
+                <form onSubmit={this._handleSubmit}>
+                    <input type="text" placeholder="Email" value={this.state.username}
+                           onChange={this._handleChange.bind(this, 'username')}/>
+                    <input type="password" placeholder="Password" value={this.state.password}
+                           onChange={this._handleChange.bind(this, 'password')}/>
+                    <input type="submit" value="Submit"/>
+                </form>
+            );
+        }
     }
 });
 

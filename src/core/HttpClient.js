@@ -6,13 +6,15 @@
 
 import request from 'superagent';
 
+import constants from '../constants/Defaults';
+
 let API_URL = '/api';
 let AUTH_URL = '/auth';
 let TIMEOUT = 1000;
 let _pendingRequests = [];
 
 function getJwt() {
-    return 'Bearer ' + localStorage.getItem('jwt');
+    return 'Bearer ' + localStorage.getItem(constants.JWT_TOKEN);
 }
 
 function addRequest(key, pendingRequest) {

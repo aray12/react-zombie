@@ -6,18 +6,18 @@
 
 import BaseStore from '../core/BaseStore';
 import ActionTypes from '../constants/ActionTypes';
-import Defaults from '../constants/Defaults';
+import constants from '../constants/Defaults';
 
 class AccountStore extends BaseStore {
     constructor() {
         super();
         this.subscribe(this._registerActions.bind(this));
-        this._account = {};
+        this._profile;
         this._loggedIn = false;
     }
 
-    get account() {
-        return this._account;
+    get profile() {
+        return this._profile;
     }
 
     get isLoggedIn() {
@@ -25,9 +25,9 @@ class AccountStore extends BaseStore {
     }
 
     _login(res) {
-        localStorage.setItem(Defaults.JWT_TOKEN, res.token);
+        localStorage.setItem(constants.JWT_TOKEN, res.body.token);
         this._loggedIn = true;
-        this._account = res.account;
+        this._profile = res.body.profile;
 
     }
 
@@ -36,6 +36,7 @@ class AccountStore extends BaseStore {
     }
 
     _registerActions(action) {
+        console.log(action);
         switch(action.type) {
             case ActionTypes.LOGIN_SUCCESS:
                 this._login(action.response);
